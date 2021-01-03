@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="49c7bad8-7142-4db1-b29a-4973a77e10d2" name="Default Changelist" comment="sms getway fuly done" />
+    <list default="true" id="49c7bad8-7142-4db1-b29a-4973a77e10d2" name="Default Changelist" comment="sms getway fuly done">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -129,7 +131,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../nitol" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -167,6 +169,9 @@
       <workItem from="1609179932776" duration="2262000" />
       <workItem from="1609220019286" duration="10000" />
       <workItem from="1609300287653" duration="2902000" />
+      <workItem from="1609584876932" duration="946000" />
+      <workItem from="1609645628355" duration="985000" />
+      <workItem from="1609692869656" duration="605000" />
     </task>
     <task id="LOCAL-00001" summary="sms getway fuly done">
       <created>1607814376819</created>

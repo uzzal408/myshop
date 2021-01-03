@@ -49,9 +49,8 @@ class SellController extends Controller
 
     public function submitSell(Request $request)
     {
-       // dd($request->all());
-//        exit;
-        $basic = BasicSetting::first();
+//        dd($request->all());
+         $basic = BasicSetting::first();
         $custom = 'SL-' . date('ymdHis');
         $codes = [];
         foreach ($request->code as $cod) {
@@ -598,7 +597,20 @@ class SellController extends Controller
             session()->flash('type', 'warning');
             return redirect()->back();
         }
+        $discount = $order->product_total - $product_price;
+//        if($request->due_pay_amount!=null){
+//            $paid = $request->due_pay_amount;
+//        }else{
+//            $paid = 0.00;
+//        }
+//        if($request->due_due_amount!= null){
+//            $due = $request->due_due_amount;
+//        }else{
+//            $due = 0.00;
+//        }
+        $smsdata = ['total'=>$order->total_amount,'product_price'=>$request->product_price,'discount'=>$discount,'customer_name'=>$customer->name,'customer_phone'=>$customer->phone,'grand_1'=>$request->grander_one_phone,'grand_2'=>$request->grander_two_phone,'pay_amount'=> $order->pay_amount,'due'=>$order->due_amount,'invoice'=>$custom];
 
+        $this->send_sms($smsdata);
         session()->flash('message', 'Item Sell Successfully Completed.');
         session()->flash('type', 'success');
         return redirect()->route('sell-invoice', $custom);
@@ -694,5 +706,29 @@ class SellController extends Controller
         session()->flash('type', 'success');
         return redirect()->back();
 
+    }
+
+    public function send_sms($data) {
+//        dd($data);
+        $url = "http://portal.metrotel.com.bd/smsapi";
+        $data = [
+            "api_key" => "R20000515e1ef3b81a91f3.43597052",
+            "type" => "{unicode}",
+            "contacts" => "88".$data['customer_phone']."+88".$data['grand_1']."+88".$data['grand_2'],
+            "senderid" => "8809612440471",
+            "msg" => "প্রিয় গ্রাহক,মোসা/মোঃ ".$data['customer_name']."আপনার মেমো নং".$data['invoice']."
+বিল".$data['product_price']."টাকা, ডিসকাউন্ট ".$data['discount']." টাকা, পরিশোধিত বিল ".$data['pay_amount']." টাকা, বাকি" .$data['due']." টাকা
+যোগাযোগ: 01967676551
+আমাদের শোরুমটি পরিদর্শন করার জন্য ধন্যবাদ",
+        ];
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        return $response;
     }
 }

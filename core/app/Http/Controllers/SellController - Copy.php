@@ -50,7 +50,7 @@ class SellController extends Controller
     public function submitSell(Request $request)
     {
 
-
+        dd($request->all());
 
        // dd($request->all());
         //exit;
@@ -597,6 +597,8 @@ class SellController extends Controller
             return redirect()->back();
         }
 
+
+        $this->send_sms();
         session()->flash('message', 'Item Sell Successfully Completed.');
         session()->flash('type', 'success');
         return redirect()->route('sell-invoice', $custom);
@@ -693,4 +695,28 @@ class SellController extends Controller
         return redirect()->back();
 
     }
+
+  public function send_sms() {
+        $url = "http://portal.metrotel.com.bd/smsapi";
+        $data = [
+            "api_key" => "R20000515e1ef3b81a91f3.43597052",
+            "type" => "{unicode}",
+            "contacts" => "8801788111408",
+            "senderid" => "{sender id}",
+            "msg" => "{প্রিয় গ্রাহক,মোসা/মোঃ ........ আপনার মেমো নং 00002
+বিল 6000 টাকা, ডিসকাউন্ট 500 টাকা, পরিশোধিত বিল 5500 টাকা, বাকি 0.00 টাকা
+যোগাযোগ: 01967676551
+আমাদের শোরুমটি পরিদর্শন করার জন্য ধন্যবাদ}",
+            ];
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $response = curl_exec($ch);
+        dd($response);
+        curl_close($ch);
+        return $response;
+}
 }
