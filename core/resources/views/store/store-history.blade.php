@@ -31,7 +31,7 @@
                                         <th>Stored Date</th>
                                         <th>Reference</th>
                                         <th>Company / Category</th>
-                                        <th>Code - Name</th>
+                                        <th>Name</th>
                                         <th>Buy Rate</th>
                                         <th>Sell Rate</th>
                                         <th>Quantity</th>
@@ -48,7 +48,7 @@
                                             <td>{{ \Carbon\Carbon::parse($p->created_at)->format('d-m-y h:i A') }}</td>
                                             <td>{{ $p->reference }}</td>
                                             <td>{{ $p->company->name }}<br>{{ $p->category->name }}</td>
-                                            <td><a href="{{ route('product-view',$p->product_id) }}" target="_blank">{{ $p->product->code }} - {{ substr($p->product->name,0,25)}}{{ strlen($p->product->name) > 25 ? '...' : '' }}</a></td>
+                                            <td><a href="{{ route('product-view',$p->product_id) }}" target="_blank">{{ substr($p->product->name,0,25)}}{{ strlen($p->product->name) > 25 ? '...' : '' }}</a></td>
                                             <td>{{ $basic->symbol }}{{ $p->buy_price }}</td>
                                             <td>{{ $basic->symbol }}{{ $p->sell_price }}</td>
                                             <td>{{ $p->codes()->count() }} - Items</td>

@@ -41,8 +41,8 @@
                                     <td>{{ $store->company->name }} - {{ $store->category->name }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Code - Name</td>
-                                    <td><a href="{{ route('product-view',$store->product_id) }}" target="_blank">{{ $store->product->code }} - {{ $store->product->name }}</a></td>
+                                    <td> Name</td>
+                                    <td><a href="{{ route('product-view',$store->product_id) }}" target="_blank"> {{ $store->product->name }}</a></td>
                                 </tr>
                                 <tr>
                                     <td>Sell Price</td>

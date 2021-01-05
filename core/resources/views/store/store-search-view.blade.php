@@ -40,8 +40,8 @@
                                     <td>{{ $product->company->name }} - {{ $product->category->name }}</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-right">Product Code - Name</td>
-                                    <td><a href="{{ route('product-view',$product->id) }}" target="_blank">{{ $product->code }} - {{ $product->name }}</a></td>
+                                    <td class="text-right">Product Name</td>
+                                    <td><a href="{{ route('product-view',$product->id) }}" target="_blank">{{ $product->name }}</a></td>
                                 </tr>
                                 <tr>
                                     <td class="text-right">In Stock</td>
@@ -78,7 +78,7 @@
                                         <th>SL#</th>
                                         <th>Store Date</th>
                                         <th>Reference</th>
-                                        <th>Warranty</th>
+
                                         <th>Sell Price</th>
                                         <th>Company Price</th>
                                         <th>Code</th>
@@ -93,7 +93,7 @@
                                             <td>{{ ++$k }}</td>
                                             <td>{{ \Carbon\Carbon::parse($p->store->created_at)->format('Y-m-d h:i A') }}</td>
                                             <td>{{ $p->store->reference }}</td>
-                                            <td>{{ $p->store->warranty }} - Days</td>
+
                                             <td>{{ $p->store->sell_price }} - {{ $basic->currency }}</td>
                                             <td>{{ $p->store->buy_price }} - {{ $basic->currency }}</td>
                                             <td>{{ $p->code }}</td>

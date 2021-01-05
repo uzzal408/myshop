@@ -31,7 +31,7 @@
                                     <th>Created At</th>
                                     <th>Company</th>
                                     <th>Category</th>
-                                    <th>Code - Name</th>
+                                    <th>Product Model Name</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -43,7 +43,7 @@
                                         <td>{{ \Carbon\Carbon::parse($p->created_at)->format('dS M,y h:i A') }}</td>
                                         <td>{{ $p->company->name }}</td>
                                         <td>{{ $p->category->name }}</td>
-                                        <td>{{ $p->code }} - {{ $p->name }}</td>
+                                        <td>{{ $p->name }}</td>
                                         <td>
                                             <a href="{{ route('product-view',$p->id) }}" class="btn btn-primary btn-sm bold uppercase" title="View"><i class="fa fa-eye"></i> View</a>
                                             <a href="{{ route('product-edit',$p->id) }}" class="btn btn-warning btn-sm bold uppercase" title="Edit"><i class="fa fa-edit"></i> Edit</a>

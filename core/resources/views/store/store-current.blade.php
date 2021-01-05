@@ -165,7 +165,7 @@
                                     <tr>
                                         <th>SL#</th>
                                         <th>Company - Category</th>
-                                        <th>Code - Name</th>
+                                        <th>Name</th>
                                         <th>In Stock</th>
                                         <th>Action</th>
                                     </tr>
@@ -177,7 +177,7 @@
                                         <tr>
                                             <td>{{ ++$k }}</td>
                                             <td>{{ $p->company->name }} - {{ $p->category->name }}</td>
-                                            <td><a href="{{ route('product-view',$p->product_id) }}" target="_blank">{{ $p->product->code }} - {{ substr($p->product->name,0,30)}}{{ strlen($p->product->name) > 30 ? '...' : '' }}</a></td>
+                                            <td><a href="{{ route('product-view',$p->product_id) }}" target="_blank">{{ substr($p->product->name,0,30)}}{{ strlen($p->product->name) > 30 ? '...' : '' }}</a></td>
                                             <td>{{ $p->product->codes()->whereStatus(0)->count() }} - Items</td>
                                             <td>
                                                 <a href="{{ route('store-search-view',$p->product_id) }}" class="btn btn-primary btn-sm text-uppercase font-weight-bold" title="View"><i class="fa fa-eye"></i> View Store</a>
@@ -231,7 +231,7 @@
                     $('#product_id').empty();
                     $('#product_id').append('<option class="font-weight-bold" value="0">All Product</option>');
                     $.each(data,function (index,subcatObj) {
-                        $('#product_id').append('<option class="font-weight-bold" value="'+subcatObj.id+'">'+subcatObj.code+' - '+subcatObj.name+'</option>');
+                        $('#product_id').append('<option class="font-weight-bold" value="'+subcatObj.id+'">'+subcatObj.name+'</option>');
                     })
                 }
 

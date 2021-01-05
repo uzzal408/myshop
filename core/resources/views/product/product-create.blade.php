@@ -53,39 +53,39 @@
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <div class="form-group">
-                                                <label class="col-md-12"><strong style="text-transform: uppercase;">Product Name</strong></label>
+                                                <label class="col-md-12"><strong style="text-transform: uppercase;">Product Model Name</strong></label>
                                                 <div class="col-md-12">
                                                     <div class="input-group">
-                                                        <input name="name" class="form-control bold" value="{{ old('name') }}" placeholder="Product Name" required/>
+                                                        <input name="name" class="form-control bold" value="{{ old('name') }}" placeholder="Product Model Name" required/>
                                                         <span class="input-group-addon"><strong><i class="fa fa-file-text-o"></i></strong></span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <div class="form-group">
-                                                <label class="col-md-12"><strong style="text-transform: uppercase;">Product Short Code</strong></label>
-                                                <div class="col-md-12">
-                                                    <div class="input-group">
-                                                        <input name="code" class="form-control bold" value="{{ old('code') }}" placeholder="Product Short Code" required/>
-                                                        <span class="input-group-addon"><strong><i class="fa fa-code"></i></strong></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+{{--                                        <div class="col-md-6 col-sm-12">--}}
+{{--                                            <div class="form-group">--}}
+{{--                                                <label class="col-md-12"><strong style="text-transform: uppercase;">Product Short Code</strong></label>--}}
+{{--                                                <div class="col-md-12">--}}
+{{--                                                    <div class="input-group">--}}
+{{--                                                        <input name="code" class="form-control bold" value="{{ old('code') }}" placeholder="Product Short Code"/>--}}
+{{--                                                        <span class="input-group-addon"><strong><i class="fa fa-code"></i></strong></span>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
                                     </div>
-                                    <div class="form-group col-12 mb-2 contact-repeater">
-                                        <label><strong style="text-transform: uppercase;">Product Specification</strong></label>
-                                        <div data-repeater-list="specification">
-                                            <div class="input-group mb-1" data-repeater-item>
-                                                <input name="specification" class="form-control bold" value="{{ old('specification') }}" placeholder="Product Specification" required/>
-                                                <span class="input-group-btn" id="button-addon2"><button class="btn btn-danger" type="button" data-repeater-delete><i class="ft-x"></i></button></span>
-                                            </div>
-                                        </div>
-                                        <button type="button" data-repeater-create class="btn btn-primary font-weight-bold">
-                                            <i class="fa fa-plus"></i> Add New Specification
-                                        </button>
-                                    </div>
+{{--                                    <div class="form-group col-12 mb-2 contact-repeater">--}}
+{{--                                        <label><strong style="text-transform: uppercase;">Product Specification</strong></label>--}}
+{{--                                        <div data-repeater-list="specification">--}}
+{{--                                            <div class="input-group mb-1" data-repeater-item>--}}
+{{--                                                <input name="specification" class="form-control bold" value="{{ old('specification') }}" placeholder="Product Specification" required/>--}}
+{{--                                                <span class="input-group-btn" id="button-addon2"><button class="btn btn-danger" type="button" data-repeater-delete><i class="ft-x"></i></button></span>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                        <button type="button" data-repeater-create class="btn btn-primary font-weight-bold">--}}
+{{--                                            <i class="fa fa-plus"></i> Add New Specification--}}
+{{--                                        </button>--}}
+{{--                                    </div>--}}
                                     <div class="col-md-12">
                                         <button type="submit" class="btn btn-primary btn-block btn-lg"><i class="fa fa-send"></i> Create Product</button>
                                     </div>

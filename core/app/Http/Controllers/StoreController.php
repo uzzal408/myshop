@@ -33,7 +33,6 @@ class StoreController extends Controller
            'company_id' => 'required',
            'category_id' => 'required',
            'product_id' => 'required',
-           'warranty' => 'required|numeric',
             'buy_price' => 'required|numeric',
             'sell_price' => 'required|numeric',
             'codes' => 'required|array'
@@ -62,6 +61,7 @@ class StoreController extends Controller
     {
         $data['page_title'] = 'Store History';
         $data['history'] = Store::latest()->get();
+
         return view('store.store-history',$data);
     }
 
@@ -92,7 +92,6 @@ class StoreController extends Controller
             'company_id' => 'required',
             'category_id' => 'required',
             'product_id' => 'required',
-            'warranty' => 'required|numeric',
             'buy_price' => 'required|numeric',
             'sell_price' => 'required|numeric',
             'codes' => 'required|array'

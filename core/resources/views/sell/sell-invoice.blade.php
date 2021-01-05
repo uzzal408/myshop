@@ -93,7 +93,7 @@
                                                         <th>#SL</th>
                                                         <th>Item Category</th>
                                                         <th>Item & Description</th>
-                                                        <th class="text-right">Warranty</th>
+
                                                         <th class="text-right">Amount</th>
                                                     </tr>
                                                     </thead>
@@ -105,7 +105,6 @@
                                                         <td>
                                                             <p>{{ $sl->product->name }} - ({{$sl->code}})</p>
                                                         </td>
-                                                        <td class="text-right">{{ $sl->store->warranty }} - Days</td>
                                                         <td class="text-right">{{ $sl->store->sell_price }} - {{ $basic->currency }}</td>
                                                     </tr>
                                                     @endforeach
@@ -144,6 +143,23 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    @if($sell->payment_type == 2)
+                                                                        @php $sellInstalment2 = \App\OrderInstalment::whereOrder_id($sell->id)->first() @endphp
+                                                                        <img src="{{ asset('assets/images/grander/'.$sellInstalment2->grander_one_image) }}"  style="width: 60px;height: 70px;" class=""/>
+                                                                    @else
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @if($sell->payment_type == 2)
+                                                                        @php $sellInstalment2 = \App\OrderInstalment::whereOrder_id($sell->id)->first() @endphp
+                                                                        <img src="{{ asset('assets/images/grander/'.$sellInstalment2->grander_two_image) }}"  style="width: 60px;height: 70px;" class=""/>
+                                                                    @else
+                                                                    @endif
+                                                                </td>
+                                                            </tr>
+
                                                                 <tr>
                                                                     <td>{{ $sellInstalment2->grander_one_name }}</td>
                                                                     <td>{{ $sellInstalment2->grander_two_name }}</td>

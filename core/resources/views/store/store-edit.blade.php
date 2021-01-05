@@ -88,7 +88,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-6 col-sm-12">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="col-md-12"><strong style="text-transform: uppercase;">Select Product</strong></label>
                                             <div class="col-md-12">
@@ -105,17 +105,17 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <div class="form-group">
-                                            <label class="col-md-12"><strong style="text-transform: uppercase;">Product Warranty</strong></label>
-                                            <div class="col-md-12">
-                                                <div class="input-group">
-                                                    <input class="form-control font-weight-bold input-lg" name="warranty" value="{{ $store->warranty }}" placeholder="Product Warranty" type="number" required>
-                                                    <span class="input-group-addon"><strong>Days</strong></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+{{--                                    <div class="col-md-6 col-sm-12">--}}
+{{--                                        <div class="form-group">--}}
+{{--                                            <label class="col-md-12"><strong style="text-transform: uppercase;">Product Warranty</strong></label>--}}
+{{--                                            <div class="col-md-12">--}}
+{{--                                                <div class="input-group">--}}
+{{--                                                    <input class="form-control font-weight-bold input-lg" name="warranty" value="{{ $store->warranty }}" placeholder="Product Warranty" type="number" required>--}}
+{{--                                                    <span class="input-group-addon"><strong>Days</strong></span>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                 </div>
 
 
@@ -217,7 +217,7 @@
                     $('#product_id').empty();
                     $('#product_id').append('<option class="font-weight-bold" value="">Select One</option>');
                     $.each(data,function (index,subcatObj) {
-                        $('#product_id').append('<option class="font-weight-bold" value="'+subcatObj.id+'">'+subcatObj.code+' - '+subcatObj.name+'</option>');
+                        $('#product_id').append('<option class="font-weight-bold" value="'+subcatObj.id+'">'+subcatObj.name+'</option>');
                     })
                 }
 

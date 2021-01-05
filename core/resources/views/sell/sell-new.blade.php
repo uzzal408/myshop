@@ -127,9 +127,7 @@
                                                 <div class="col-md-4">
                                                     <label class="col-md-12"><strong style="text-transform: uppercase;">Product Name</strong></label>
                                                 </div>
-                                                <div class="col-md-2">
-                                                    <label class="col-md-12"><strong style="text-transform: uppercase;">Product Warranty</strong></label>
-                                                </div>
+
                                                 <div class="col-md-2">
                                                     <label class="col-md-12"><strong style="text-transform: uppercase;">Price</strong></label>
                                                 </div>
@@ -161,16 +159,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-2">
-                                                        <div class="form-group">
-                                                            <div class="col-md-12">
-                                                                <div class="input-group">
-                                                                    <input name="warranty[]" class="form-control bold warranty" value="" placeholder="Product Warranty" readonly required/>
-                                                                    <span class="input-group-addon"><strong>Days</strong></span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+
                                                     <div class="col-md-2">
                                                         <div class="form-group col-md-12">
                                                             <div class="input-group">
@@ -320,7 +309,7 @@
                                             </div>
                                         </div>
 
-                                     
+
                                         <div class="form-group">
                                             <label class="col-md-12"><strong style="text-transform: uppercase;">Total Amount</strong></label>
                                             <div class="col-md-12">

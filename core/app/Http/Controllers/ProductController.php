@@ -29,20 +29,19 @@ class ProductController extends Controller
         $request->validate([
            'company_id' => 'required',
            'category_id' => 'required',
-           'name' => 'required|unique_with:products,company_id,category_id',
-            'code' => 'required|min:4|unique:products',
-            'specification' => 'required|array'
+           'name' => 'required|unique_with:products,company_id,category_id'
+
         ]);
 
-        $in = Input::except('_method','_token','specification');
+        $in = Input::except('_method','_token');
 
         $product = Product::create($in);
 
-        foreach ($request->specification as  $s){
-            $sp = new Specification;
-            $sp->name = $s['specification'];
-            $product->specifications()->save($sp);
-        }
+//        foreach ($request->specification as  $s){
+//            $sp = new Specification;
+//            $sp->name = $s['specification'];
+//            $product->specifications()->save($sp);
+//        }
         session()->flash('message','Product Save Successfully');
         session()->flash('type','success');
         return redirect()->back();
@@ -71,22 +70,21 @@ class ProductController extends Controller
         $request->validate([
             'company_id' => 'required',
             'category_id' => 'required',
-            'name' => 'required|unique_with:products,company_id,category_id,'.$product->id,
-            'code' => 'required|min:4|unique:products,code,'.$product->id,
-            'specification' => 'required|array'
+            'name' => 'required|unique_with:products,company_id,category_id,'.$product->id
+
         ]);
 
-        $in = Input::except('_method','_token','specification');
+        $in = Input::except('_method','_token');
 
         $product->fill($in)->save();
 
-        $product->specifications()->delete();
+//        $product->specifications()->delete();
 
-        foreach ($request->specification as  $s){
-            $sp = new Specification;
-            $sp->name = $s['specification'];
-            $product->specifications()->save($sp);
-        }
+//        foreach ($request->specification as  $s){
+//            $sp = new Specification;
+//            $sp->name = $s['specification'];
+//            $product->specifications()->save($sp);
+//        }
 
         session()->flash('message','Product Update Successfully');
         session()->flash('type','success');

@@ -65,6 +65,7 @@
         .font-size-14{
             font-size: 13px !important;
         }
+
     </style>
 
     <!-- Google Font -->
@@ -110,16 +111,27 @@
         <div class="row invoice-info">
             <div class="col-sm-6 col-xs-6">
                 <div class="well extra-well extra-table2" style="padding: 10px;">
-                <h4 class="extra-h" style="margin-bottom: 3px;font-size: 14px;">Customer Details</h4>
-                    <ul class="list-unstyled" style="margin-bottom: 0;">
-                    <li class="font-size-14">{{ $sell->customer->name }}</li>
-                    <li class="font-size-14">{{ $sell->customer->phone }}</li>
-                    @if($sell->customer->phone != null)
-                        <li class="font-size-14"> {{ $sell->customer->phone2 }}</li>
+                    <h4 class="extra-h" style="margin-bottom: 3px;font-size: 14px;text-align: center;">Customer Details</h4>
+                    @if($sell->payment_type == 2)
+                        @php $sellInstalment2 = \App\OrderInstalment::whereOrder_id($sell->id)->first() @endphp
+                        <img src="{{ asset('assets/images/customer/'.$sellInstalment2->customer_image) }}"  style="width: 80px;height: 80px;" class=""/>
+                    @else
                     @endif
+                    <ul class="list-unstyled" style="margin-bottom: 0;">
+                        <li class="font-size-14">{{ $sell->customer->name }}</li>
+                        <li class="font-size-14">{{ $sell->customer->phone }}</li>
+                        @if($sell->customer->phone != null)
+                            <li class="font-size-14"> {{ $sell->customer->phone2 }}</li>
+                        @endif
                         <li class="font-size-14">{{ $sell->customer->address }}</li>
                     </ul>
+                    <br>
+
+                        <span>-------------------</span>
+                       <p>Signature</p>
+
                 </div>
+
             </div>
             <!-- /.col -->
 
@@ -139,6 +151,51 @@
                     </ul>
                 </div>
             </div>
+            <!-- /.col -->
+        </div>
+        <br>
+        <div class="row invoice-info">
+            <div class="col-sm-6 col-xs-6">
+                <div class="well extra-well extra-table2" style="padding: 10px;">
+                    <h4 class="extra-h" style="margin-bottom: 3px;font-size: 14px;text-align: center;">Grander One Information</h4>
+                    @if($sell->payment_type == 2)
+                        @php $sellInstalment2 = \App\OrderInstalment::whereOrder_id($sell->id)->first() @endphp
+                        <img src="{{ asset('assets/images/grander/'.$sellInstalment2->grander_one_image) }}"  style="width: 80px;height: 80px;" class=""/>
+                    @else
+                    @endif
+                    <ul class="list-unstyled" style="margin-bottom: 0;">
+                        <li class="font-size-14">{{ $sellInstalment2->grander_one_name }}</li>
+                        <li class="font-size-14">{{ $sellInstalment2->grander_one_phone }}</li>
+                        <li class="font-size-14">{{ $sellInstalment2->grander_one_address }}</li>
+                    </ul>
+                    <br>
+
+                    <span>-------------------</span>
+                    <p>Signature</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xs-6">
+                <div class="well extra-well extra-table2" style="padding: 10px;">
+                    <h4 class="extra-h" style="margin-bottom: 3px;font-size: 14px;text-align: center;">Grander Two Information</h4>
+                    @if($sell->payment_type == 2)
+                        @php $sellInstalment2 = \App\OrderInstalment::whereOrder_id($sell->id)->first() @endphp
+                        <img src="{{ asset('assets/images/grander/'.$sellInstalment2->grander_two_image) }}"  style="width: 80px;height: 80px;" class=""/>
+                    @else
+                    @endif
+                    <ul class="list-unstyled" style="margin-bottom: 0;">
+                        <li class="font-size-14">{{ $sellInstalment2->grander_two_name }}</li>
+                        <li class="font-size-14">{{  $sellInstalment2->grander_two_phone }}</li>
+                        <li class="font-size-14">{{ $sellInstalment2->grander_two_address }}</li>
+                    </ul>
+                    <br>
+
+                    <span>-------------------</span>
+                    <p>Signature</p>
+                </div>
+            </div>
+            <!-- /.col -->
+
+
             <!-- /.col -->
         </div>
         <!-- /.row -->
@@ -235,11 +292,46 @@
             </div>
             <!-- /.col -->
         </div>
+        <h5 class="text-center">Instalment Date List</h5>
+        <div class="table-responsive table-bordered table-striped">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#SL</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($instalmentList as $key => $ins)
+                    <tr>
+                        <td>{{ ++$key }}</td>
+                        <td>{{ \Carbon\Carbon::parse($ins->pay_date)->format('dS M,Y') }}</td>
+                        <td>{{ $ins->amount }} {{ $basic->currency }}</td>
+                        <td>
+                            @if($ins->status == 1)
+                                <div class="badge badge-success">Paid</div>
+                            @else
+                                <div class="badge badge-warning">Pending</div>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
         <div class="row">
             <div class="col-sm-12">
-                <div class="well extra-well extra-table2" style="padding: 10px;">
+
                     <p class="font-size-14 text-align-center">{!! $basic->admin_text  !!}</p>
-                </div>
+
+            </div>
+            <br>
+            <br>
+            <div style="text-align: right;">
+                <span>-------------------</span>
+                <p>Authorized by</p>
             </div>
         </div>
 

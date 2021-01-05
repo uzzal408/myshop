@@ -49,10 +49,7 @@ class SellController extends Controller
 
     public function submitSell(Request $request)
     {
-
-
-
-       // dd($request->all());
+        //dd($request->all());
         //exit;
         $basic = BasicSetting::first();
         $custom = 'SL-' . date('ymdHis');
@@ -65,13 +62,10 @@ class SellController extends Controller
                 }
             }
         }
-        $instalment = Instalment::findOrFail($request->instalment_id);
-        $due_amount = ($request->ins_total_amount - $request->ins_pay_amount); //($request->due_total_price - $request->due_pay_amount);
-        $due_charge = ($instalment->charge / 100) * $due_amount;
-        $grandDueAmount = round($due_charge + $due_amount);
-        if (count($codes) != 0) { //if start
 
-            if ($request->customer_type == 0) {
+        if (count($codes) != 0) {       //if start
+
+            if ($request->customer_type == 0) {         //new customer
                 $request->validate([
                     'name' => 'required',
                     'email' => 'nullable|email|unique:customers',
@@ -86,7 +80,7 @@ class SellController extends Controller
 
                 if ($request->product_price != null) {
 
-                    if ($request->payment_type == 0) {
+                    if ($request->payment_type == 0) {//on paid
 
                         $orderT = Order::create();
                         $order = Order::find($orderT->id);
@@ -142,8 +136,8 @@ class SellController extends Controller
                         $basic->save();
 
 
-                    } elseif ($request->payment_type == 1) {
-
+                    } elseif ($request->payment_type == 1)     //on due paid
+                    {
                         $orderT = Order::create();
                         $order = Order::find($orderT->id);
 
@@ -177,10 +171,8 @@ class SellController extends Controller
 
                         $order->payment_type = $request->payment_type;
                         $order->total_amount = $request->due_total_price;
-                        $order->pay_amount = $request->due_pay_amount;
-                        $order->due_amount = $request->due_total_price - $request->due_pay_amount;
-                        //$order->pay_amount = $request->ins_pay_amount;
-                       // $order->due_amount = $grandDueAmount; // $request->due_total_price - $request->due_pay_amount;
+                        $order->pay_amount = $request->ins_pay_amount;
+                        $order->due_amount = $request->due_total_price - $request->due_pay_amount;  //$grandDueAmount;
                         $order->status = 2; // Have Due Payment
                         $order->save();
 
@@ -198,13 +190,18 @@ class SellController extends Controller
                         $basic->balance += $request->due_pay_amount;
                         $basic->save();
 
-                    } else {
-
+                    } elseif ($request->payment_type == 2)      //Installment payment
+                    {
                         if ($request->instalment_id == null) {
                             session()->flash('message', 'Select A Instalment Type');
                             session()->flash('type', 'warning');
                             return redirect()->back();
                         } else {
+
+                            $instalment = Instalment::findOrFail($request->instalment_id);
+                            $due_amount = ($request->ins_total_amount - $request->ins_pay_amount); //($request->due_total_price - $request->due_pay_amount);
+                            $due_charge = ($instalment->charge / 100) * $due_amount;
+                            $grandDueAmount = round($due_charge + $due_amount);
 
                             $orderT = Order::create();
                             $order = Order::find($orderT->id);
@@ -274,7 +271,6 @@ class SellController extends Controller
 //                            ]);
 
 
-
                             if ($request->hasFile('customer_image')) {
                                 $image = $request->file('customer_image');
                                 $filename = 'customer' . time() . '.' . $image->getClientOriginalExtension();
@@ -339,7 +335,9 @@ class SellController extends Controller
                     return redirect()->back();
                 }
 
-            } else {
+            }
+            else    //Existing Customer
+            {
                 if ($request->customer_id == null) {
                     session()->flash('message', 'Select A Exist Customer.');
                     session()->flash('type', 'warning');
@@ -350,7 +348,7 @@ class SellController extends Controller
 
                     if ($request->product_price != null) {
 
-                        if ($request->payment_type == 0) {
+                        if ($request->payment_type == 0) {      //on paid
 
                             $orderT = Order::create();
                             $order = Order::find($orderT->id);
@@ -440,8 +438,7 @@ class SellController extends Controller
                             $order->payment_type = $request->payment_type;
                             $order->total_amount = $request->due_total_price;
                             $order->pay_amount = $request->due_pay_amount;
-                           // $order->due_amount = $grandDueAmount; $request->due_total_price - $request->due_pay_amount;
-                            $order->due_amount = $request->due_total_price - $request->due_pay_amount;
+                            $order->due_amount = $request->due_total_price - $request->due_pay_amount;//$grandDueAmount;
                             $order->due_payment_date = $request->due_payment_date;
                             $order->status = 2; // Have Due Payment
                             $order->save();
@@ -461,11 +458,16 @@ class SellController extends Controller
                             $basic->save();
                         } else {
 
+
                             if ($request->instalment_id == null) {
                                 session()->flash('message', 'Select A Instalment Type');
                                 session()->flash('type', 'warning');
                                 return redirect()->back();
                             } else {
+                                $instalment = Instalment::findOrFail($request->instalment_id);
+                                $due_amount = ($request->ins_total_amount - $request->ins_pay_amount); //($request->due_total_price - $request->due_pay_amount);
+                                $due_charge = ($instalment->charge / 100) * $due_amount;
+                                $grandDueAmount = round($due_charge + $due_amount);
 
                                 $orderT = Order::create();
                                 $order = Order::find($orderT->id);
@@ -556,7 +558,7 @@ class SellController extends Controller
 
                                 $orderInss = OrderInstalment::create($orIns);
 
-//                                $instalment = Instalment::findOrFail($request->instalment_id);
+//                               $instalment = Instalment::findOrFail($request->instalment_id);
                                 $parIns = round($grandDueAmount / $instalment->time);
                                 $tt = '';
                                 for ($i = 1; $i <= $instalment->time; $i++) {
