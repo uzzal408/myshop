@@ -52,6 +52,8 @@ Route::post('admin/password/reset', 'Admin\ResetPasswordController@reset');
 Route::get('admin-logout', 'Admin\LoginController@logout')->name('admin.logout');
 
 Route::get('admin-dashboard',['as'=>'dashboard','uses'=>'DashboardController@getDashboard']);
+//PDF
+Route::get('instalment-repayment-pdf-history/{custom}',['as'=>'instalment-repayment-pdf-history','uses'=>'RepaymentPDFController@repaymentPDFHistory']);
 
 Route::group(['prefix' => 'admin'], function () {
 
@@ -239,7 +241,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('instalment-repayment-search',['as'=>'instalment-repayment-search','uses'=>'RepaymentController@searchInstalmentRepayment']);
     Route::get('instalment-repayment-receipt/{invoice}',['as'=>'instalment-repayment-invoice','uses'=>'RepaymentController@invoiceInstalmentRepayment']);
     Route::get('instalment-repayment-receipt-print/{invoice}',['as'=>'instalment-repayment-invoice-print','uses'=>'RepaymentController@printInstalmentRepayment']);
-
     Route::get('manage-staff',['as'=>'manage-staff','uses'=>'DashboardController@manageStaff']);
     Route::post('manage-staff',['as'=>'manage-staff','uses'=>'DashboardController@storeStaff']);
     Route::get('manage-staff/{product_id?}',['as'=>'staff-edit','uses'=>'DashboardController@editStaff']);

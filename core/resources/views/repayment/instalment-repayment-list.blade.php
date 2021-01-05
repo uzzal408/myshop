@@ -67,6 +67,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
+                                <a href="{{ url('instalment-repayment-pdf-history/'.$p->instalment->custom ) }}">View Pdf</a>
                             </div>
 
                         </div>

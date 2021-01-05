@@ -243,7 +243,7 @@ class RepaymentController extends Controller
     {
 
         $instalment = InstalmentTime::findOrFail($request->instalmentTime_id);
-        //dd($instalment );
+
 
         $custom = 'IN-' . date('ymdHis');
 
@@ -324,14 +324,25 @@ class RepaymentController extends Controller
         $grander_two_phone = $orderInstalment->grander_two_phone;
         $message = 'Instalment Payment succesfully done';
 
-        HelperProvider::send_sms($this->getSingleCustomerPhone($re['customer_id']), $message);
+//        HelperProvider::send_sms($this->getSingleCustomerPhone($re['customer_id']), $message);
 
-        HelperProvider::send_sms($grander_one_phone, $message);
-        HelperProvider::send_sms($grander_two_phone, $message);
+//        HelperProvider::send_sms($grander_one_phone, $message);
+//        HelperProvider::send_sms($grander_two_phone, $message);
 
 
         //grander sms
-
+        $installmentData = getInstallmentDetailsById($request->orderInstalment_id);
+        $customer = getCustomerById($instalment->instalment->customer_id);
+        $smsData = array(
+            'total' => $installmentData['total'],
+            'due'   => $installmentData['due'],
+            'paid'  => $installmentData['paid'],
+            'customer_name' => $customer->name,
+            'customer_phone' => $customer->phone,
+            'customer_phone2' => $customer->phone2,
+            'custom' => $custom
+        );
+        $this->send_sms($smsData);
 
 
 
@@ -459,6 +470,35 @@ class RepaymentController extends Controller
         $customer = DB::table('customers')->where('id',$id)->first();
         return $customer->phone;
     }
+
+    public function send_sms($data) {
+//        dd($data);
+        $url = "http://portal.metrotel.com.bd/smsapi";
+        $msg = "প্রিয় গ্রাহক,মোসা/মোঃ ".$data['customer_name']."আপনার মেমো নং".$data['custom']."
+বিল".$data['total']."টাকা, টাকা, পরিশোধিত বিল ".$data['paid']." টাকা, বাকি" .$data['due']." টাকা,
+click here for detail url(".'http://dev.core.com/instalment-repayment-pdf-history'.'/'.$data['custom'].")
+যোগাযোগ: 01967676551
+আমাদের শোরুমটি পরিদর্শন করার জন্য ধন্যবাদ";
+        $encodeMsg = urlencode($msg);
+        $data = [
+            "api_key" => "R20000515e1ef3b81a91f3.43597052",
+            "type" => "{unicode}",
+            "contacts" => "88".$data['customer_phone']."+88".$data['customer_phone2'],
+            "senderid" => "8809612440471",
+            "msg" =>$encodeMsg,
+        ];
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        return $response;
+    }
+
+
 
 }
 
