@@ -473,19 +473,26 @@ class RepaymentController extends Controller
 
     public function send_sms($data) {
 //        dd($data);
+        $link = "url(".'http://dev.core.com/instalment-repayment-pdf-history'.'/'.$data['custom'].")";
+        $encodeLink = urlencode($link);
         $url = "http://portal.metrotel.com.bd/smsapi";
+//        $msg = "Dear Client,Mr/Mrs ".$data['customer_name']."your invoice".$data['custom']."
+//bill".$data['total']."taka, paid amount ".$data['paid']." taka,due" .$data['due']." taka,
+//click here for detail".urlencode($link)."
+//contact: 01967676551
+//thanks";
         $msg = "প্রিয় গ্রাহক,মোসা/মোঃ ".$data['customer_name']."আপনার মেমো নং".$data['custom']."
 বিল".$data['total']."টাকা, টাকা, পরিশোধিত বিল ".$data['paid']." টাকা, বাকি" .$data['due']." টাকা,
 click here for detail url(".'http://dev.core.com/instalment-repayment-pdf-history'.'/'.$data['custom'].")
 যোগাযোগ: 01967676551
 আমাদের শোরুমটি পরিদর্শন করার জন্য ধন্যবাদ";
-        $encodeMsg = urlencode($msg);
+//        $encodeMsg = urlencode($msg);
         $data = [
             "api_key" => "R20000515e1ef3b81a91f3.43597052",
-            "type" => "{unicode}",
+            "type" => "{text}",
             "contacts" => "88".$data['customer_phone']."+88".$data['customer_phone2'],
             "senderid" => "8809612440471",
-            "msg" =>$encodeMsg,
+            "msg" =>$msg,
         ];
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
